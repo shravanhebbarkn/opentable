@@ -1,0 +1,133 @@
+ project : Open Table (OTA)
+ Frame work : Spider
+ Storage : CSV (Use mongoengine for better JSON format instead of normal Validation)
+========================================================================================================================================== 
+
+Instructions to run: 1 . scrapy crawl open_table_hotels  -a region_id=16 -a sub_region=0(If present) (command Line)
+			 scrapy crawl open_table_hotels  -a region_id=16 -a sub_region=118 	
+			 Region of NewYork :region id= 16,1492,77,9274
+					    sub_region(16)=118,119,164,202,198,204,412,195,126,163,107,454,655,110,112 (need to create one more 							    sprider to store the location info)
+
+JSON: {
+    "Cuisines": [],
+    "Locations": [
+        {
+            "Id": "Macro:16",
+            "DomainId": 1,
+            "Type": "Location",
+            "Name": "Manhattan",
+            "Country": {
+                "Id": "US",
+                "Name": "United States"
+            },
+            "Metro": {
+                "Id": 8,
+                "Name": "New York / Tri-State Area"
+            },
+            "Region": {
+                "Id": 16,
+                "Name": "Manhattan"
+            },
+            "description": "Manhattan",
+            "terms": [
+                {
+                    "value": "Manhattan"
+                },
+                {
+                    "value": "New York / Tri-State Area"
+                }
+            ],
+            "latitude": 40.75075,
+            "longitude": -73.986431
+        },
+        {
+            "Id": "Macro:9274",
+            "DomainId": 1,
+            "Type": "Location",
+            "Name": "Central New York",
+            "Country": {
+                "Id": "US",
+                "Name": "United States"
+            },
+            "Metro": {
+                "Id": 8,
+                "Name": "New York / Tri-State Area"
+            },
+            "Region": {
+                "Id": 9274,
+                "Name": "Central New York"
+            },
+            "description": "Central New York",
+            "terms": [
+                {
+                    "value": "Central New York"
+                },
+                {
+                    "value": "New York / Tri-State Area"
+                }
+            ],
+            "latitude": 43.054911,
+            "longitude": -76.151507
+        }
+}
+==========================================================================================================================================
+mechanism :
+		1.First I extracted the region id of NewYork city's by https://www.opentable.com/autocomplete/v1/autocomplete?term=new         
+		  +york&latitude=12.98&longitude=77.58.
+
+		2. Second I scraped the hotel info url from https://www.opentable.com/s/?regionids=16 by Xpath method.
+
+		3. Finaly I scraped the hotel screen shot from https://www.opentable.com/mercer-kitchen. 
+===========================================================================================================================================
+
+JSON :{
+	"name":name,
+        "restaurant_types":restaurant_types,
+        "restaurant_link":hotel_url,
+        "latitude":latitude,
+        "longitude":longitude,
+        "description":description,
+        "cost_range":cost_range,
+        "menu_last_updated":menu_last_updated,
+        "cuisines":cuisines
+        "contact_nos":contact_nos,
+        "restaurant_images":restaurant_images
+}
+
+===========================================================================================================================================
+library list : 
+
+asn1crypto==0.24.0
+attrs==19.1.0
+Automat==0.7.0
+certifi==2019.6.16
+cffi==1.12.3
+chardet==3.0.4
+constantly==15.1.0
+cryptography==2.7
+cssselect==1.0.3
+hyperlink==19.0.0
+idna==2.8
+incremental==17.5.0
+lxml==4.4.0
+numpy==1.17.0
+panda==0.3.1
+pandas==0.24.2
+parsel==1.5.1
+pyasn1==0.4.5
+pyasn1-modules==0.2.5
+pycparser==2.19
+PyDispatcher==2.0.5
+PyHamcrest==1.9.0
+pyOpenSSL==19.0.0
+python-dateutil==2.8.0
+pytz==2019.1
+queuelib==1.5.0
+requests==2.22.0
+Scrapy==1.7.2
+service-identity==18.1.0
+six==1.12.0
+Twisted==19.2.1
+urllib3==1.25.3
+w3lib==1.20.0
+zope.interface==4.6.0
